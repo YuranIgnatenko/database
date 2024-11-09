@@ -16,7 +16,8 @@ def get_links_files():
         for url in urls:
             try:
                 if str(url.find("blob")) != "-1":
-                    links_files.append(url)
+                    if str(url.find("pdf")) != "-1":
+                        links_files.append(url)
             except:pass
     else:
         return str(-1)
@@ -27,14 +28,15 @@ root = Tk()
 root.geometry("600x600")
 
 class Pdf:
-    def __init__(self, link_pdf,link_png,link_txt):
+    def __init__(self, link_pdf):
+        print(link_pdf)
         self.Autor = ""
         self.Title = ""
         self.CountPages = ""
         self.Description = ""
         self.LinkPdf = link_pdf
-        self.LinkPng = link_png
-        self._load_meta_data_(link_txt)
+        self.LinkPng = link_pdf.replace(".pdf", ".png")
+        self._load_meta_data_(link_pdf.replace(".pdf", ".txt"))
     def _load_meta_data_(self,link_txt):
         url = link_txt
         file_Path = f'{link_txt}.txt'
@@ -44,9 +46,12 @@ class Pdf:
             meta_data = str(file.readall()).split("+++")
             print(meta_data)
 
+pdfs = []
+
 imgs = []
 for link in get_links_files():
     print(link)
+    pdfs.append(Pdf(link))
     img = ImageTk.PhotoImage(Image.open("../pdf/f2.png").resize((100,100)))
     imgs.append(img)
     panel = Label(root, image = img)

@@ -1,5 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+import wget
+from tkinter import *
+from PIL import ImageTk, Image
+import os
 
 def get_links_files():
     url = "http://github.com/Yurijgrim/database/tree/main/pdf/"
@@ -19,21 +23,31 @@ def get_links_files():
     return set(links_files)
 
 
-from tkinter import *
-from PIL import ImageTk, Image
-import os
-
 root = Tk()
 root.geometry("600x600")
 
-from PIL import Image
+class Pdf:
+    def __init__(self, link_pdf,link_png,link_txt):
+        self.Autor = ""
+        self.Title = ""
+        self.CountPages = ""
+        self.Description = ""
+        self.LinkPdf = link_pdf
+        self.LinkPng = link_png
+        self._load_meta_data_(link_txt)
+    def _load_meta_data_(self,link_txt):
+        url = link_txt
+        file_Path = f'{link_txt}.txt'
+        wget.download(url, file_Path)
+        print('downloaded')
+        with open (f'{link_txt}.txt') as file:
+            meta_data = str(file.readall()).split("+++")
+            print(meta_data)
 
-# image_val = Image.open("f1.png")
-# image_val.show()
 imgs = []
 for link in get_links_files():
     print(link)
-    img = ImageTk.PhotoImage(Image.open("f2.png").resize((100,100)))
+    img = ImageTk.PhotoImage(Image.open("../pdf/f2.png").resize((100,100)))
     imgs.append(img)
     panel = Label(root, image = img)
     panel.pack(fill="x",expand=True)

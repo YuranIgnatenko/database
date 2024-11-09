@@ -38,6 +38,8 @@ class Pdf:
         self.LinkPng = link_pdf.replace(".pdf", ".png")
         self._load_meta_data_(link_pdf.split(".")[-2]+".txt")
     def _load_meta_data_(self,link_txt):
+        link_txt = "http://github.com"+link_txt
+        print(link_txt)
         url = link_txt
         file_Path = f'{link_txt}.txt'
         wget.download(url, file_Path)

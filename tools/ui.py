@@ -36,7 +36,7 @@ class Pdf:
         self.Description = ""
         self.LinkPdf = link_pdf
         self.LinkPng = link_pdf.replace(".pdf", ".png")
-        self._load_meta_data_(link_pdf.replace(".pdf", ".txt"))
+        self._load_meta_data_(link_pdf.split(".")[-2]+".txt")
     def _load_meta_data_(self,link_txt):
         url = link_txt
         file_Path = f'{link_txt}.txt'

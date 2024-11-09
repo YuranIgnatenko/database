@@ -30,17 +30,22 @@ from PIL import Image
 
 # image_val = Image.open("f1.png")
 # image_val.show()
-
+imgs = []
 for link in get_links_files():
+    print(link)
+    img = ImageTk.PhotoImage(Image.open("f2.png").resize((100,100)))
+    imgs.append(img)
+    panel = Label(root, image = img)
+    panel.pack(fill="x",expand=True)
     _ = Button(root, text=link, relief="groove")
     _.pack(fill="x",expand=True)
 
-    img = Image.open('f1.jpeg')# .resize((100,100))
+    # img = Image.open('f1.jpeg')# .resize((100,100))
     # image = ImageTk.PhotoImage(image)
 
     # Создание метки для отображения изображения
-    image_label = Label(root, image=ImageTk.PhotoImage(img))
-    image_label.pack()
+    # image_label = Label(root, image=ImageTk.PhotoImage(img))
+    # image_label.pack()
     
 
 root.mainloop()
